@@ -1,0 +1,97 @@
+inicijalizacija varijabli;
+
+trenutniGrad = grad0;
+ponavljaj dok ima neobiđenih gradova{
+
+   dohvaćaj  dostupne neobiđene gradove;
+
+   ako su zadovoljeni uvjeti kapaciteta i vremenskog okvira {
+      odredi euklidsku udaljenost ;
+
+      if (novaUdaljenost  < udaljenost){
+         udaljenost = nova Udaljenost;
+		 idućiGrad = grad;
+	     vrijemeČekanja = 0;
+	  }
+   } 
+
+   if( idućiGrad nije odabran){
+      dohvaćaj trenutno nedostupne neobiđene gradove;
+      vrijemeČekanja = PočetnoVrijemeGrada -vrijemeTrenutno - put -posaoGradTrenutni;
+
+      ako su zadovoljeni uvjeti kapaciteta i vremenskog okvira {
+         odredi euklidsku udaljenost;
+
+         if (novaUdaljenost  < udaljenost){
+            udaljenost = nova Udaljenost;
+            idućiGrad = grad;
+		 }
+	  }
+   }
+
+   if (idućiGrad nije odbran) idućiGrad = grad0;
+
+   if (idućiGrad != grad0) {
+      novoVrijeme = vrijeme + put + posaoTrenutniGrad + vrijemeČekanja;
+      noviKapacitet = kapacitet – teretZaGradX;
+      trenutniGrad = idućiGrad;
+   } else{
+      novoVrijeme = 0;
+      noviKapacitet = kapacitetMax;
+      trenutniGrad obiđen;
+      trenutniGrad = grad0; 
+   }
+}
+
+
+---------------------
+računajCiklus(mrav){
+	
+	ako su svi gradovi posjećeni 
+		zatvori ciklus i vrati se
+		
+	dohvatljivi = računajListuDohvatiljivihGradova //poštujući vremenske i kapacitivne okvire
+	
+	za svaki grad iz dohvatljivi {
+		računajVjerojatnosti // feromoni * vidljivost * heuristika uštede * heuristika čekanja
+		normaliziraj vjerojatnosti
+		
+		ako (rand = randomDouble < 0.85)
+			provedi eksploataciju // biraj grad s najvećom vjerojatnosti
+		inače
+			provedi eksploraciju // odaberi grad s random pragom vjerojatnosti 
+	}
+	
+	ako nije odabran grad
+		zatvori ciklus, otvori novi
+		return
+	
+	spremi odabrani grad u ciklus		
+}
+
+AntSystem {
+	
+   inicijalizirajParametre, mrave, polja euklidskih udaljenosti i heuristike udaljenosti
+	
+   ponavljaj 500 puta {
+	
+	   za svakog mrava od njih 20 {
+			
+		   dok postoji neposjećenih gradova {	
+		      računajCiklus(mrav)
+		   }
+			
+		   evaluiraj trenutno rješenje
+	   }
+			
+	   obnovi feromonske tragove globalno //evaporacija + najbolji mrav na svojoj ruti povećava feromone
+		
+	   provjeri je li najbolje rješenje //i spremi ako je
+	}	
+}	
+
+
+
+
+
+

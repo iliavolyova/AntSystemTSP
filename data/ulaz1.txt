@@ -1,0 +1,15 @@
+HMO
+
+VEHICLE
+NUMBER     CAPACITY
+  25         60
+
+CUSTOMER
+CUST NO.   XCOORD.   YCOORD.   DEMAND    READY TIME   DUE DATE   SERVICE TIME
+ 
+    0       8          8          0         0       100          0   
+    1      15         15         14        25        69         10   
+    2       1          9         27        30        90         10   
+    3      10         20          5        30        95         10   
+    4      15          7         10         5        24         10   
+    5      10          1         10        30        60         10   
